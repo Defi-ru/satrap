@@ -1,0 +1,5 @@
+---
+- name: "Restart DNS by handler"
+  ansible.builtin.include_tasks:
+    file: dns_restart.yaml
+  listen: "restart_named"

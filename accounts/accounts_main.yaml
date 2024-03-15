@@ -1,0 +1,24 @@
+---
+- name: "Add Linux users from Account role"
+  hosts: xrdp_server
+  become: true
+  # We collect facts in main.yaml (in service dir) via module setup. 
+  # Otherwise, a lot of time is lost when all tasks will collect facts in this yaml file
+  gather_facts: no
+#  roles: 
+#    - { role: 'user_linux', tags: 'user_linux'}
+
+
+# COMMENT ME
+  vars:
+   - user_file: list-users.txt
+   - pass_file: list-passwords.txt
+  tasks:
+  - name: install
+    debug:
+      msg: "{{ item }}"
+    loop: "{{ lookup('file', '{{ user_file }}' ).split('\n') }}"
+
+  - name: wefwf
+    debug:
+      msg: "wefwef"

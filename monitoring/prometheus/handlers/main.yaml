@@ -1,0 +1,5 @@
+---
+- name: "Restart Prometheus by handler"
+  ansible.builtin.include_tasks:
+    file: prometheus_restart.yaml
+  listen: "restart_prometheus"

@@ -1,0 +1,97 @@
+# Hint: fast prepare inventory file (by sed) just replace your server:
+# sed -i 's#srv-hadoop01.nyufkins.com#srv-centos-test.narfa.pl#g' inventory
+
+# === Network
+# DNS
+dns_server:
+  hosts:
+    server01
+  vars:
+    ansible_user: root
+
+dns_clients:
+  children:
+    dhcp_clients:
+
+# DHCP
+dhcp_server:
+  hosts:
+    server01
+  vars:
+    ansible_user: root
+
+dhcp_clients:
+  hosts:
+    server01:
+      mac: 6e:80:78:3b:28:1d
+      ip_plan: 192.168.40.11
+    server02:
+      mac: 5a:f7:38:3d:03:d6
+      ip_plan: 192.168.40.12
+    server03:
+      mac: 5a:f7:38:3d:03:d4
+      ip_plan: 192.168.40.13
+
+# OpenVPN
+openvpn_server:
+  hosts:
+    server01
+  vars:
+    ansible_user: root
+
+# XRDP
+xrdp_server:
+  hosts:
+    server01
+  vars:
+    ansible_user: root
+
+
+# === Accounts
+# Passwords
+user_linux_somple_password:
+  hosts:
+    server01
+
+user_linux_strong_password:
+  hosts:
+    server01
+
+
+
+
+# === Monitoring
+#
+grafana_server:
+  hosts:
+    server01
+
+# Influxdb
+influxdb_server:
+  hosts:
+    server01
+  vars:
+    ansible_user: root
+
+telegraf:
+  hosts:
+    server01
+    server02
+    server03
+  vars:
+    ansible_user: root
+
+# Prometheus
+prometheus_server:
+  hosts:
+    server01
+  vars:
+    ansible_user: root
+
+node_exporter:
+  hosts:
+    server01
+    server02
+    server03
+  vars:
+    ansible_user: root

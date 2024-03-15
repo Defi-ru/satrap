@@ -1,0 +1,19 @@
+$TTL 14400
+
+{{ dns_reverse_ip }}.in-addr.arpa. IN SOA {{ dns_domain }}. admin.{{ dns_domain }}. (
+        {{ dns_serial }}        ; Serial
+        10800           ; Refresh
+        3600            ; Retry
+        604800          ; Expire
+        604800          ; Negative Cache TTL
+)
+
+
+                                    IN      NS      ns1.{{ dns_domain }}.
+
+; this config file management by ansible
+
+
+{% for host in groups['dhcp_clients'] %}
+{{ hostvars[host].ip_plan | ipaddr('revdns') }}        IN      PTR       {{ host | split('.') | first }}.{{ dns_domain }}.
+{% endfor %}

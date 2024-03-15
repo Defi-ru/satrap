@@ -1,0 +1,11 @@
+# InfluxDB options:
+influxdb_host: srv-hadoop01.nyufkins.com
+influxdb_port: 8086
+
+# Telegraf options:
+organization: RTK
+
+# Don't forgot change token to yours!
+#token: 6iYIFFZBI8CLlpCZCvafoskwy0xApQojEzwdMCGLG5gMRIt32iADe23eMd5wjsEavVNL0LqJSNb2i_xT989YrQ==
+token: re0-j9hSZLebpro_lVXgOu_zLXnnGq_Tp2xsuqp0NH__YfhUvO_-H7gcvoDMrIVJu-3cXtAm5AJzp4icz87Vsw==
+bucket: telegraf

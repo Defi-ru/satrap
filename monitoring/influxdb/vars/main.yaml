@@ -1,0 +1,3 @@
+# InfluxDB options:
+influxdb_host: srv-hadoop01.nyufkins.com
+influxdb_port: 8086

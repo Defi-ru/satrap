@@ -1,0 +1,55 @@
+---
+- name: "Prometheus - Download Prometheus tar file"
+  ansible.builtin.get_url:
+    url: "{{ prometheus_url }}"
+    dest: "{{ prometheus_download_dir }}"
+    mode: '0755'
+
+- name: "Prometheus - Extract tar"
+  ansible.builtin.unarchive:
+    src: "{{ prometheus_download_dir  }}/{{ prometheus_name }}.tar.gz"
+    dest: "{{ prometheus_download_dir }}"
+    remote_src: yes
+
+- name: "Prometheus - Add the prometheus User"
+  ansible.builtin.user:
+    name: prometheus
+    comment: Prometheus system user
+    create_home: false
+    shell: /usr/bin/false
+# /bin
+- name: "Prometheus - Create Binary Directories"
+  ansible.builtin.file:
+    path: "{{ item.path  }}"
+    state: directory
+    mode: '0755'
+    owner: prometheus
+    group: prometheus
+  loop:
+    - path: "{{ prometheus_lib_dir  }}"
+    - path: "{{ prometheus_settings_dir  }}"
+
+- name: "Prometheus - Copy Prometheus Binaries"
+  ansible.builtin.copy:
+    src: "{{ item.source_path }}"
+    dest: "{{ prometheus_bin_dir }}"
+    remote_src: yes
+    mode: '0755'
+    owner: prometheus
+    group: prometheus
+  loop:
+    - source_path: "{{ prometheus_download_dir }}/{{ prometheus_name }}/prometheus"
+    - source_path: "{{ prometheus_download_dir }}/{{ prometheus_name }}/promtool"
+
+# /etc
+- name: "Prometheus - Copy Prometheus Files"
+  ansible.builtin.copy:
+    src: "{{ item.source_path }}"
+    dest: "{{ prometheus_settings_dir }}"
+    remote_src: yes
+    mode: '0755'
+    owner: prometheus
+    group: prometheus
+  loop:
+    - source_path: "{{ prometheus_download_dir }}/{{ prometheus_name }}/consoles"
+    - source_path: "{{ prometheus_download_dir }}/{{ prometheus_name }}/console_libraries"

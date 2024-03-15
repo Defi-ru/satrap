@@ -1,0 +1,9 @@
+---
+#  - include_vars:
+#      file: ../vars/main.yaml
+
+  - name: "Template named conf"
+    ansible.builtin.template:
+      src: dhcpd.conf.j2
+      dest: "{{ dhcpd_config  }}"
+    notify: dhcp_restart

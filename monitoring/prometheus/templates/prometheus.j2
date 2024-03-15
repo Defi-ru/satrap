@@ -1,0 +1,15 @@
+global:
+  scrape_interval: {{ prometheus_global_interval }}s
+
+scrape_configs:
+  - job_name: 'prometheus_master'
+    scrape_interval: {{ prometheus_master_interval }}s
+    static_configs:
+      - targets: ['localhost:{{ prometheus_port  }}']
+
+  - job_name: 'node_exporter_centos'
+    scrape_interval: {{ prometheus_node_exporter_interval }}s
+    static_configs:
+{% for host in groups['prometheus_node_exporter'] %}
+      - targets: ['{{ host }}:{{ prometheus_node_exporter_port }}']
+{% endfor %}

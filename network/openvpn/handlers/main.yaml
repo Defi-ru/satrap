@@ -1,0 +1,5 @@
+---
+- name: "Restart OpenVPN by handler"
+  ansible.builtin.include_tasks:
+    file: openvpn_restart.yaml
+  listen: "openvpn_restart"

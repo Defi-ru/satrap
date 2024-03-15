@@ -1,0 +1,13 @@
+---
+- name: "Telegraf - Configure settings"
+  ansible.builtin.template:
+    src: telegraf.conf.j2
+    dest: "/etc/telegraf/telegraf.conf"
+  notify: restart_telegraf
+
+- name: "Telegraf - start service"
+  ansible.builtin.systemd:
+    name: telegraf
+    state: started
+    daemon_reload: yes
+    enabled: yes

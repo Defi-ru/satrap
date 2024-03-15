@@ -1,0 +1,13 @@
+---
+- name: "InfluxDB - Configure settings"
+  ansible.builtin.template:
+    src: templates/config.toml.j2
+    dest: "/etc/influxdb/config.toml"
+  notify: restart_influxdb
+
+- name: "InfluxDB - start systemctl influxdb"
+  ansible.builtin.systemd:
+    name: influxdb
+    state: started
+    daemon_reload: yes
+    enabled: yes

@@ -1,0 +1,15 @@
+---
+  #- include_vars:
+  #    file: ../vars/main.yaml
+
+  - name: "Template xrdp.ini"
+    ansible.builtin.template:
+      src: xrdp.ini.j2
+      dest: /etc/xrdp/xrdp.ini
+    notify: xrdp_restart
+
+  - name: "Template desktop"
+    ansible.builtin.template:
+      src: desktop.j2
+      dest: /etc/sysconfig/desktop
+    notify: xrdp_restart

@@ -1,0 +1,33 @@
+---
+  - name: "Inatall epel-release"
+    ansible.builtin.package:
+      name: epel-release
+      state: present
+
+    # ansible yum module don't work :(
+  - name: "Install the 'Server with GUI' package group"
+    ansible.builtin.shell: yum -y groups install "Server with GUI"
+
+  - name: "Install the 'Xfce' package group"
+    ansible.builtin.yum:
+      name: "@Xfce"
+      state: latest
+
+    # XRDP
+  - name: "Install xrdp"
+    ansible.builtin.yum:
+      name: "xrdp"
+      state: present
+
+  - name: "Enable xrpd service"
+    ansible.builtin.systemd:
+      name: xrdp
+      enabled: true
+
+    # TODO: get check if firewalld is not present on system
+  - name: "Allow rdp on firewalld"
+    ansible.posix.firewalld:
+      port: 3389/tcp
+      permanent: true
+      state: enabled
+

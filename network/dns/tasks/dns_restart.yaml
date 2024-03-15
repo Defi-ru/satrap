@@ -1,0 +1,6 @@
+---
+- name: "restart_named"
+  ansible.builtin.systemd:
+    name: named
+    state: restarted
+    enabled: yes

@@ -1,0 +1,4 @@
+- name: "xrdp_restart"
+  ansible.builtin.include_tasks:
+    file: xrdp_restart.yaml
+  listen: xrdp_restart

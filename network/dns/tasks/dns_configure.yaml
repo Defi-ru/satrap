@@ -1,0 +1,39 @@
+---
+# Needed Python netaddr on ansible server
+# pip install netaddr
+
+    #- include_vars:
+    #    file: vars/vars.yaml
+
+    #- include_vars:
+    #    file: vars/dns_list.yaml
+
+    - name: "Template named conf"
+      ansible.builtin.template:
+        src: named.conf.j2
+        dest: "{{ named_config  }}"
+
+    - name: "Create directory for DNS zones"
+      ansible.builtin.file:
+        path: "{{ master_dir }}"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: named
+      notify: restart_named
+
+    - name: "Template master zone"
+      ansible.builtin.template:
+        src: master.j2
+        dest: "{{ master_dir }}/{{ dns_domain }}"
+        owner: root
+        group: named
+      notify: restart_named
+
+    - name: "Template reverse zone"
+      ansible.builtin.template:
+        src: ./templates/reverse.j2
+        dest: "{{ master_dir  }}/{{ dns_reverse_ip }}.db"
+        owner: root
+        group: named
+      notify: restart_named

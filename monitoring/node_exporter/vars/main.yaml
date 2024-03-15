@@ -1,0 +1,18 @@
+---
+# Node Exporter vars
+prometheus_node_exporter_interval: 10 # seconds
+prometheus_node_exporter_port: 9101
+
+# Prometheus & node_exporter vars
+prometheus_bin_dir: /usr/local/bin
+
+# Other vars
+prometheus_download_dir: /opt
+
+prometheus_name: prometheus-2.39.1.linux-amd64
+prometheus_url: https://github.com/prometheus/prometheus/releases/download/v2.39.1/prometheus-2.39.1.linux-amd64.tar.gz
+#prometheus_work_dir: "/opt/{{ prometheus_name }}" # Don't work
+prometheus_work_dir: /opt/prometheus-2.39.1.linux-amd64
+
+prometheus_node_exporter_name: node_exporter-1.4.0.linux-amd64
+prometheus_node_exporter_url: https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz

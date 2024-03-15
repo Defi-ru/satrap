@@ -1,0 +1,28 @@
+---
+- name: "Node Exporter Download tar file"
+  ansible.builtin.get_url:
+    url: "{{ prometheus_node_exporter_url }}"
+    dest: "{{ prometheus_download_dir }}"
+    mode: '0755'
+
+- name: "Node Exporter - Extract tar"
+  ansible.builtin.unarchive:
+    src: "{{ prometheus_download_dir  }}/{{ prometheus_node_exporter_name }}.tar.gz"
+    dest: "{{ prometheus_download_dir }}"
+    remote_src: yes
+
+- name: "Node Exporter - Add the nodeusr user"
+  ansible.builtin.user:
+    name: nodeusr
+    comment: Node exporter system user
+    create_home: false
+    shell: /usr/bin/false
+
+- name: "Node Exporter - Copy Files to bin"
+  ansible.builtin.copy:
+    src: "{{ prometheus_download_dir }}/{{ prometheus_node_exporter_name }}/node_exporter"
+    dest: "{{ prometheus_bin_dir }}"
+    remote_src: yes
+    mode: '0755'
+    owner: nodeusr
+    group: nodeusr

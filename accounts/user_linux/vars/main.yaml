@@ -1,0 +1,16 @@
+---
+user_list: ../list-passwords.txt
+user_pass: ../list-users.txt
+
+group_name:
+   - students
+   - hadoop
+   - hdfs
+   - yarn
+   - hbase
+
+add_user_to_group: true
+
+user_black_list:
+  - user01
+  - user03
