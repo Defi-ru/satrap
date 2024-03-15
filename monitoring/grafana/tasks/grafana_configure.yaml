@@ -1,0 +1,18 @@
+---
+- name: "Grafana - Configure settings"
+  template:
+    src: grafana_ini.j2
+    dest: "{{ grafana_ini_path }}"
+    owner: root
+    group: grafana
+    mode: '0644'
+  notify: restart_grafana
+
+- name: "Grafana - start systemctl grafana-server"
+  ansible.builtin.systemd:
+    name: grafana-server
+    state: started
+    daemon_reload: yes
+    enabled: yes
+
+#TODO: добавить возможность настройки порта

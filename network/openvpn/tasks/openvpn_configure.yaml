@@ -1,0 +1,21 @@
+---
+- name: "Template server.conf"
+  ansible.builtin.template:
+    src: server.conf.j2
+    dest: "{{ openvpn_conf_dir }}/server.conf"
+
+- name: "Template Client OpenVPN"
+  ansible.builtin.template:
+    src: client.ovpn.j2
+    dest: "{{ openvpn_conf_dir }}/client.ovpn"
+
+- name: "Template vars"
+  ansible.builtin.template:
+    src: vars.j2
+    dest: "{{ openvpn_conf_dir }}/easy_rsa/easyrsa3/vars"
+
+
+
+
+#- name: "Clean Cerificates"
+#  shell: 

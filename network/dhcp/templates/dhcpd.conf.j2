@@ -1,0 +1,32 @@
+#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp*/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+log-facility    local6;
+ddns-update-style interim;
+ignore client-updates;
+authoritative;
+allow booting;
+allow bootp;
+allow unknown-clients;
+
+subnet {{ subnet }} netmask {{ netmask }} {
+    range {{ range }};
+    option domain-name-servers {{ dns }};
+    option domain-name "{{ domain }}";
+    option routers {{ router }};
+    option broadcast-address {{ broadcast }};
+    default-lease-time {{ default_lease_time }}; # 600 = 10 min
+    max-lease-time {{ max_lease_time }}; # 7200 = 2 hours
+
+    # IP of PXE Server
+    # next-server 192.168.30.1;
+    # filename "pxelinux.0";
+}
+
+{% for host in groups['dhcp_clients'] %}
+host {{ host }} {
+    hardware ethernet {{ hostvars[host]['mac'] }}; fixed-address {{ hostvars[host]['ip_plan'] }};
+}
+{% endfor %}

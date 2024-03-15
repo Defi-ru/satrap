@@ -1,0 +1,5 @@
+---
+- name: "Restart InfluxDB by handler"
+  ansible.builtin.include_tasks:
+    file: influxdb_restart.yaml
+  listen: "restart_influxdb"

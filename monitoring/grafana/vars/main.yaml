@@ -1,0 +1,3 @@
+# Grafana
+grafana_port: 3000
+grafana_ini_path: /etc/grafana/grafana.ini

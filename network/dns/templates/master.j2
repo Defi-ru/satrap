@@ -1,0 +1,29 @@
+$TTL 14400
+
+{{ dns_domain }}.     IN      SOA     ns1.{{ dns_domain }}. admin.{{ dns_domain }}. (
+        {{ dns_serial }}        ; Serial
+        10800           ; Refresh
+        3600            ; Retry
+        604800          ; Expire
+        604800          ; Negative Cache TTL
+)
+
+                IN      NS      ns1.{{ dns_domain }}.
+                IN      NS      ns2.{{ dns_domain }}.
+
+                IN      MX 10   mx.{{ dns_domain }}.
+                IN      MX 20   mx2.{{ dns_domain }}.
+
+@               IN      A       {{ dns_ip }}
+localhost       IN      A       127.0.0.1
+ns1             IN      A       {{ dns_ip }}
+ns2             IN      A       192.168.1.3
+www             IN      CNAME   {{ dns_domain }}
+
+; this config file management by ansible
+
+
+{% for host in groups['dhcp_clients'] %}
+{{ host | split('.') | first }}      IN      A       {{ hostvars[host].ip_plan }}
+{% endfor %}
+

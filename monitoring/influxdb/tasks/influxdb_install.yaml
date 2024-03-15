@@ -1,0 +1,15 @@
+---
+- name: "InfluxDB - Add Repository"
+  ansible.builtin.template:
+    src: templates/influxdb.repo
+    dest: /etc/yum.repos.d/influxdb.repo
+
+- name: "InfluxDB - Install influxdb2 package"
+  ansible.builtin.package:
+    name: influxdb2
+    state: present
+
+- name: "InfluxDB - Install influxdb2-cli package"
+  ansible.builtin.package:
+    name: influxdb2-cli
+    state: present

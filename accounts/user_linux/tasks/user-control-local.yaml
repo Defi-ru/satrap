@@ -1,0 +1,36 @@
+     - name: "Ensure group {{ group_name }} exists"
+       ansible.builtin.group:
+         name: "{{ item.strip() }}"
+         state: present
+       when: add_user_to_group == true
+       loop: "{{ group_name }}"
+
+     - name: "Add users from dict with groups"
+       ansible.builtin.user:
+         name: "{{ item.key  }}"
+         comment: "{{ item.key  }}"
+         password: "{{ item.value.password }}"
+         groups: "{{ group_name }}"
+         append: no
+       loop: "{{ lookup('ansible.builtin.dict', user_white_list) }}"
+       when: add_user_to_group == true
+
+     - name: "Add users from dict without groups"
+       ansible.builtin.user:
+         name: "{{ item.key  }}"
+         comment: "{{ item.key  }}"
+         password: "{{ item.value.password }}"
+       loop: "{{ lookup('ansible.builtin.dict', user_white_list) }}"
+       when: add_user_to_group == false
+
+     - name: "Remove users from server"
+       ansible.builtin.user:
+         name: "{{ item  }}"
+         state: absent
+       loop: "{{ user_black_list  }}"
+
+     - name: "Remove user homve dir"
+       ansible.builtin.file:
+         path: "/home/{{ item }}"
+         state: absent
+       loop: "{{ user_black_list  }}"

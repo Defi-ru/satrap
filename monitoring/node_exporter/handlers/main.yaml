@@ -1,0 +1,5 @@
+---
+- name: "Restart Node Exporter by handler"
+  ansible.builtin.include_tasks:
+    file: node_exporter_restart.yaml
+  listen: "restart_node_exporter"

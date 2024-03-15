@@ -1,0 +1,16 @@
+---
+- name: "Node Exporter - Template a Settings File"
+  ansible.builtin.template:
+    src: node_exporter_service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart_node_exporter
+
+- name: "Node Exporter - Start service"
+  ansible.builtin.systemd:
+    name: node_exporter
+    state: started
+    daemon_reload: yes
+    enabled: yes

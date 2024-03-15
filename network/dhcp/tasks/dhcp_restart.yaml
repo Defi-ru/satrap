@@ -1,0 +1,6 @@
+---
+- name: "Restart Service dhcpd"
+  ansible.builtin.systemd:
+    name: dhcpd
+    state: restarted
+    enabled: yes

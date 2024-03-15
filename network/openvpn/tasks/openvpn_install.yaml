@@ -1,0 +1,41 @@
+---
+# Isntall OpenVPN
+- name: "Inatall epel-release"
+  ansible.builtin.package:
+    name: epel-release
+
+- name: "Install OpenVPN packages"
+  ansible.builtin.package:
+    name: 
+      - epel-release
+      - openvpn
+      - easy-rsa
+    state: present
+
+# Isntall EasyRSA
+#- name: "Download EasyRSA"
+#  ansible.builtin.get_url:
+#    url: "{{ easy_rsa_url }}"
+#    dest: "{{ openvpn_conf_dir}}/{{ easy_rsa_tar }}"
+#    mode: '0755'
+
+- name: "Extract tar {{ openvpn_conf_dir}}/{{ easy_rsa_tar }} to {{ openvpn_conf_dir}}"
+  ansible.builtin.unarchive:
+    src: "{{ openvpn_conf_dir}}/{{ easy_rsa_tar }}"
+    dest: "{{ openvpn_conf_dir}}"
+    remote_src: yes
+
+- name: "Rename dir Easy-RSA"
+  ansible.builtin.copy:
+    src: "{{ openvpn_conf_dir}}/{{ easy_rsa_unpack }}/"
+    dest: "{{ openvpn_conf_dir}}/easy_rsa"
+    remote_src: yes
+
+- name: "Remove dir Easy-RSA"
+  ansible.builtin.file:
+    path: "{{ openvpn_conf_dir}}/{{ easy_rsa_unpack }}"
+    state: absent
+
+- name: "Import Easy RSA Tasks"
+  ansible.builtin.import_tasks:
+    file: "./{{ role_current }}/tasks/{{ role_current }}_easy_rsa.yaml"

@@ -1,0 +1,15 @@
+---
+- name: "Gather the package facts"
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Telegraf - Add Repository"
+  ansible.builtin.template:
+    src: influxdb.repo
+    dest: /etc/yum.repos.d/influxdb.repo
+
+- name: "Telegraf - Install telegraf package"
+  ansible.builtin.package:
+    name: "telegraf"
+    state: present
+  when: "'telegraf' not in ansible_facts.packages"

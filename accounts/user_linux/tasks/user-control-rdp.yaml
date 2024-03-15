@@ -1,0 +1,162 @@
+---
+# Version 2.0
+- hosts:
+    srv-hadoops02
+  gather_facts: yes
+  become: true
+  become_user: root
+  vars:
+    add_user_to_group: false
+    group_name: students
+    # Hint: how generate sha512 hash 'mypassword' used ansible:
+    # ansible srv-hadoops01, -m debug -a "msg={{ 'mypassword' | password_hash('sha512', 'mysecretsalt') }}"
+    user_white_list:
+      alfimov:
+        password: "$6$mysef23f2fb$AYYE3ucYbp0bXBczHUqGP4wMjPSgHiHruon6ssmcOdzBzQ/snSV45AuOiFxvbojMoFVUX3aGJm/mjvVRxH72b."
+      bogdanovich:
+        password: "$6$mysef23f2fb$QtKlcgajx7V16klJfxDmYFb8quWt.RiCWdjd/ZUOdtWingCxPdRzdf8rqARWAR1GjbcXni86iz4PnKpKi7JzI0"
+      bolotov:
+        password: "$6$mysef23f2fb$qxRTI1wB9qC7Pe3LvNf1mrxg3NLt.RxjU4cjFEbtbqVXlg8Y6kLg18mGDsBJAE8XyWriyMHcmuhYeQQp6oSn6."
+      burkov:
+        password: "$6$mysef23f2fb$YGBuDu3m1pIu2CSQta4UEWTX.ILidDDvrFGTxCdfB6qZB9CGojpYNGJkASxdFxIZvG8pxMqidShRQPlj9uobC0"
+      varlamov:
+        password: "$6$mysef23f2fb$NuB49pAcPYu3TVtLYvIN2IYwEcSpqDh9c9z55HwZ5MItpeXrpGV/qKOANGImj3PpKRG1hZiJEBCKOZrLsOYq01"
+      vasilev-av:
+        password: "$6$mysef23f2fb$ykGBaR4gY1wRAg.sJsY6fTzqGKH8HxpJv0CgfaZrT1ZnxfgHrmO9GjD19GxqHXwecLla1wjk/o34JK0K5oq9F1"
+      vasilev-va:
+        password: "$6$mysef23f2fb$8yc6V5oiT8fnHfvFONfKqBJlM1wNQoKU767dI4LVmmCJFdzBZfUVe3w/l5ojv7crGmzn8qcHfMI6Qf7tcN1St/"
+      vasilev-vn:
+        password: "$6$mysef23f2fb$sy4ss4pNR.aIvrG6cpUNDkhAySRMuElyCD22Fm3MJ8mJS7E/M36zxzpa3HRdwJMm5K32Y2RteKXCPvl8g2CMc0"
+      volkov:
+        password: "$6$mysef23f2fb$HPg0sGbglRiEkxwkIw3HADrzHy6GX75lZFF/C8dYS907JLcjfh1nOG2IuNm/dYmZ20fdQZvEUBImH33vB7nh01"
+      voropaev:
+        password: "$6$mysef23f2fb$.D6EPgjKgrL7ZKeG2Jq6SoJ9wKtxpbt6aCNCXTj5xd52Y1yb2PuMbYkvdHuEhUJfvCBron16nU0jem/lYTIwo."
+      galinov:
+        password: "$6$mysef23f2fb$3lLTLz86/iYGXjiYVhCPZDb31pnMDnKnLRmBikUV5eRpKI0bCQcX0nJ5KkMWn0mZb7gNLRcE/RkSKM84PU2Bq."
+      golikova:
+        password: "$6$mysef23f2fb$u1EFOa7pJIPCsThdTQoQ5UuAICEOMIC3c6HEFkxxjDtINL819gkUIpfQH9Gkur.bmza1XjYAagUnsTYw9SqZz1"
+      goncharov:
+        password: "$6$mysef23f2fb$Yw7t8UACUU75g6zh39wSh37tM95DSGONGK2Ws6FsM9k/HPo3igLOOt1D90DFbJIcZVdTgxtvF2oox8661Yin41"
+      grushevskiy:
+        password: "$6$mysef23f2fb$auBEl12yNCgRq4wjUtKvMN.k7TfVSl8iauww1vQDyHpZEoCBRQ4EqxB8rk3GqLUKgJe269lqisXt7w7RASydo/"
+      dolganov:
+        password: "$6$mysef23f2fb$y9AJyD4mPpPYi4RRgLtsCBKqmdlAnmYSHS6vcHvQtSdk2VMqzRzaT0kwaM9XCPxvluQeuCWrhpqBtJJPHqbWy1"
+      dronov:
+        password: "$6$mysef23f2fb$05LrWsX7MB4xmR41nnyFRWOwDzRZAuiEsXsqu4wOJvJC.ZVTZcO/Vx3WyaKQGsHB3FrhuJkRdtdqHwU0OD6qy1"
+      zhukov:
+        password: "$6$mysef23f2fb$6Dca2bBDsHeyQeYC0ZR6VQTByZFtJNA7uQS14oqx1JUWWLsjtxQ0oEGx79jrVnLbLgwuUgxHt6pM.j34RdEwb."
+      zaytsev:
+        password: "$6$mysef23f2fb$vsKVnIXZurXtb124K2wTnbkZjxRiVsnJVfUo.zdZQzCgYq/oX02J34qHXcot1Q14xAOCKluXsDtHSShvYf0cp1"
+      zemtsov:
+        password: "$6$mysef23f2fb$bat42y1CWtuoQLw6kQWZqmc6FeTMDN4iIALrxPvWoAP75iW5Gt08GsDzx97fX.pMpuT/4I7wQczHozvwpKElz."
+      ivanov:
+        password: "$6$mysef23f2fb$mTy1TnO3CJpST3D/t3iLiYlZKvQjroYqt327xmHMdItMsxRrsCNHnnuAnGf8Bc9z/mEzNGi2pxJjHUXlZnRdQ0"
+      kaznadi:
+        password: "$6$mysef23f2fb$HJcmJG/5uwjtvk5yB8SF/wvVqUUCLJy3sc4PIQ4L7.pOjPP2dmxVJ.jY3BdzszC5Sj5RJgoNHN2HHHeDh.2HV/"
+      karlov:
+        password: "$6$mysef23f2fb$2MIvrynu/dYS9HiBKCWF9xRbFmppX64SPiNDzBCBcgKI.Lhmo3YigzwY5dkUO0z09/iiKAoxxIoPuxI4FOmCh/"
+      kolosova:
+        password: "$6$mysef23f2fb$iYw.KkVLz8UMeaFRItOmxy0bFEwyD76BlVbfmikiPVa3Dwtg8VVDJDQrGW1tDcug/k0JuOpEX17CQvp0RV.bS."
+      korolev:
+        password: "$6$mysef23f2fb$O5QolI9SuSe1Fflmx8zkq2UT33f21GkFajW9iK3p/RTXTTH7W5LScLN/ATh/cLclVyRMVWBnkSwtMOR3wsSMt."
+      krasnickiy:
+        password: "$6$mysef23f2fb$QHdPSbIqzBaPJ1YW1TQtJXIKFWUJj63Y6Y684bURsPidTeFrRslMj5xuzQrEw9IVD9iKqmnZVHklWnNKcvGWu."
+      kuznetsov:
+        password: "$6$mysef23f2fb$qLrCkug1FwgxIwHDZ5PJifGFEh3tvizAnsf7XvhnEoOYI/0mrgnNbNboqmWRdMtU6eIswmTtH9nZYWEubYCqb."
+      levitskaya:
+        password: "$6$mysef23f2fb$LgIDx0K1cnciyKkgzf9cgQ3LSk1SRt4yUSwN4h2cyTcd91fiYXbYLzosLdtw/Em6uw9MjlYVl25YKy/jOTH7D/"
+      lisichenko:
+        password: "$6$mysef23f2fb$7X.7v6Vtg9qsgvU/z1rML5PDZaSG/qcwbI7iLb7FCRmCPZdXT3PjJEzWpZZ0vxvZ3QzuYQeBAijDLRQtoWMYF."
+      logachev:
+        password: "$6$mysef23f2fb$9h/ZA.6fYEKMYmY/MU4jVAmmhvpAAlg1dkc97RhL4Pl/8XoohHxP9BYVU7kfXx1GAF4Xikwp.Bc3lcgl5IoXV0"
+      lozinskiy:
+        password: "$6$mysef23f2fb$fuMXkHxj1FADeS1cg.roAaXOKDS8Xi/B/OXhBdl4G/QXjFBw.JugPqONKO4pQyfZX6BKlQZqMakdOwb1wRfJO0"
+      malakhov:
+        password: "$6$mysef23f2fb$J5em6G6uPC02NOqHb7Qz9uLON46LzwzQ5KBGFkZ5aossdYsamnRxyJeFKtQRYY1jDMlzJfo.TghzGlB8koTeZ."
+      medovkin:
+        password: "$6$mysef23f2fb$Qq8GUlakh6ej3NtcfgfXFr1bxDXklf7ekRxwCynZCcSQtkB/vc15TfVdHLAtdlWIuA3dmC0PLE2TO1BRvJnbr0"
+      nagaichuk:
+        password: "$6$mysef23f2fb$OMt.5qwQoWDmcH3YYOuaHIkzmn5AHcJBWguWXRU3k/cm2eGTyvOsPwXmUdLoaKajj5xD0CVYsKqljwH6GRUOq/"
+      nebogin:
+        password: "$6$mysef23f2fb$dmrUfqb.jQNiklPa2MMfWUoVEycOFHQ1px4IKUzhIKva3Xgk1Vr0HtH/kvH1OqwGK9BrEU9ycoev3PpMdRfrR/"
+      nikitenko:
+        password: "$6$mysef23f2fb$l6alNIb9nP8OnBLgf8HnDlWlcn7J29U/XiZ/d0VHsGh5sOM.DoPibndLFJS3F27BPZbVsEEU0N8xzgWhrQ6hK0"
+      olejnikov:
+        password: "$6$mysef23f2fb$TBT0g7fQZizAXcveIubcYzLBj/QnBEN7BcFK6DIxbPsXrh5YfHPPQAHowID9ET19TTpSQM/TIl1kcQK0LEKSQ."
+      orlov-dv:
+        password: "$6$mysef23f2fb$RA/E4DjVUca8h7FcTPm8dlUY07hnC69C0LcmYHqTNrMLMZgVHX5NP4zzPPm4s.WF2Y4Urx5Ov6OtyWCxANKGS1"
+      orlov-de:
+        password: "$6$mysef23f2fb$FQq3SO/ClzMOE2L90fENiOhB3fO63M/d9vp1Xv5Zrvd63VVUYkpdnPbfxz8aBzgxqH7hkJYZtD0wz7H8L.u1d1"
+      orlov-ea:
+        password: "$6$mysef23f2fb$35Xcm//Ix75niIVEf1A9e40ogQyJ4YWAvvKpx11e5A5JYj8Xb.IyZ2YsQhZBrXQkrg2yfVA8wNsByHldAE7OA1"
+      osipov:
+        password: "$6$mysef23f2fb$uLFBpjE0SYZm9a6rda.quHE8IJZCnymJx.2C02bQd9eCdhXjAm4VNDhK1bkpOYYP1XZ2pmXibjesw5Im99giC0"
+      pavlov:
+        password: "$6$mysef23f2fb$MziVHXBZsBR2aYWxiCvMpJJSOznMtJCJfmc.va4J4zc1d3MqJYU5S7nmnccYk5kla5MsRmUoHXWidRWi3YbJw."
+      popov:
+        password: "$6$mysef23f2fb$/ra.zKdc.4XPB/yxFUPdKxYZ563JYlGBV9ZDgHof6S1AOlcLtL1yA3WNKy4XF8Nekb00CHW/2knSkXlu7L4kM0"
+      pronina:
+        password: "$6$mysef23f2fb$QBoGet7njDYfNvd2e2NAjP0ZOgoFplm.B0gsOXDTLmaSoQ0c7rCGPJNTi4Gy/s3s7x3tB3tzDWKSCZwX2xBGC1"
+      roschin:
+        password: "$6$mysef23f2fb$xwfPsLHavarac6XVUpulhYupMjxAc3fg.Mz2tlGoGHo0H6hr11/2NwNcTuvS1oOxCvJ/D0hyRapRBrS42VkkV."
+      savchuk:
+        password: "$6$mysef23f2fb$ehvhbaxK/lfLtBFmQPPiqoVXEZMdVBpis2QYLXQ9.P/2hTDIkw/WmpONC1OG1uAHcz74NGhv4W1WOlnPzSlnu0"
+      sudlenkov:
+        password: "$6$mysef23f2fb$8lhbU4WJ.qXtHsNjckhy9.b/td5k9Z/hFAN/2.gjynvpSGNZHc50QJxd1w/nm/1jhqbGcFHergrRNa5qUJfn9."
+      sudov:
+        password: "$6$mysef23f2fb$bIq2kB1j/Cvg9wVoUoUGEy8QMDeVyE3I.NHmD7xnRYZ2/guJWy58.Ybc1Hf1PTjrvZAPXwuj.orlV7YYF/3oj1"
+      trascheev:
+        password: "$6$mysef23f2fb$ICskzxwGhQ3f.UvTQyD3h6/2MDmtHYcS2wstkkp14nDL2Fb8fIkN8YaLzAR0yQaSMkoCItPTsVvYMZ37mYbyV0"
+      trofimov:
+        password: "$6$mysef23f2fb$QIrUvNG1ivOcUTSKLXPU/bTvxKDGMWR9xnk4pxSYdtp6eLu6HyPZRlXrwAtUsWpheGHHvtW11igT5Z3.aE5hv0"
+      kharlanov:
+        password: "$6$mysef23f2fb$oYrT.vMHRi057/kv174p.tjo5wJLfphn5dVZLWKXC6A.LpcZ3/wG237D.OQ8cdwGyyrB5wR.pnAr6ipY6eYe7/"
+      tsarev:
+        password: "$6$mysef23f2fb$KR4jpt1Botcs9SouQWbvSkO/Zls3FhZvWDu7oLIzppCJUkLvtxD.a.ZSbUIi0jvV3zUT4B1TGdgCHN6VvPnoa/"
+      chernenkiy:
+        password: "$6$mysef23f2fb$zkImfF7dY1xUXJ4uoFYgH6hZZgrsOXZGMrtT1ZDS/nDwFXLD9CGByNTwPDZkwOW8EDBNhYpiAzgnvxH555iX80"
+      chiryatev:
+        password: "$6$mysef23f2fb$NG7OgbkWimUTTRVJAaiTMZLEzzkPR3v6vg3FEf1XGoCq5Z2Hsd7HFD2q4Rz1MZJqtAlTeSDZcP5qZwP.RJlc.1"
+      yakupov:
+        password: "$6$mysef23f2fb$WWZm47MSeeSVR7/8adJw3yrlGG4KSM4oOO5T37KSYa9HzkG1FQUAsAK/J5Ev3WtvaIDnszdsMNmjWq5LrjpLK1"
+      pichkurenko:
+        password: "$6$mysef23f2fb$zIyaqs5lStyIuei./Wrk86lJuE2MxACxrgIqQQneHZH8xwBfrHHwptrqyOaZptQqsoJgAfpR9PSEDeyIB/qdG/"
+    user_black_list:
+     - user01
+     - user02
+
+  tasks:
+     - name: "Ensure group {{ group_name }} exists"
+       ansible.builtin.group:
+         name: "{{ group_name }}"
+         state: present
+       when: add_user_to_group == true
+
+     - name: "Add users from dict with groups"
+       ansible.builtin.user:
+         name: "{{ item.key  }}"
+         comment: "{{ item.key  }}"
+         password: "{{ item.value.password }}"
+         group: "{{ group_name }}"
+       loop: "{{ lookup('ansible.builtin.dict', user_white_list) }}"
+       when: add_user_to_group == true
+
+     - name: "Add users from dict without groups"
+       ansible.builtin.user:
+         name: "{{ item.key  }}"
+         comment: "{{ item.key  }}"
+         password: "{{ item.value.password }}"
+       loop: "{{ lookup('ansible.builtin.dict', user_white_list) }}"
+       when: add_user_to_group == false
+
+     - name: "Remove users from server"
+       ansible.builtin.user:
+         name: "{{ item  }}"
+         state: absent
+       loop: "{{ user_black_list  }}"
+
+     - name: "Remove user homve dir"
+       ansible.builtin.file:
+         path: "/home/{{ item }}"
+         state: absent
+       loop: "{{ user_black_list  }}"

@@ -1,0 +1,10 @@
+# DNS main (check this)
+dns_serial: 16072023
+dns_domain: narfa.pl
+dns_ip: 192.168.30.141
+dns_reverse_ip: 30.168.192
+allow_query: 192.168.30.0/24
+
+# DNS other
+named_config: /etc/named.conf
+master_dir: /var/named/master

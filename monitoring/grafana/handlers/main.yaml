@@ -1,0 +1,5 @@
+---
+- name: "Restart Grafana by handler"
+  ansible.builtin.include_tasks:
+    file: grafana_restart.yaml
+  listen: "restart_grafana"

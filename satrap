@@ -1,0 +1,115 @@
+#!/bin/bash
+
+TEXT_EDITOR=vi
+
+ROLE_ACTION=$1
+SERVICE=$2
+
+
+# COLOR VARS
+CLEAR_COLOR="\033[0m"
+RED_COLOR="\033[31m"
+GREEN_COLOR="\033[32m"
+PURPLE_COLOR='\033[0;35m'
+BLUE_COLOR='\033[0;34m'
+
+
+# 0. MOTD
+if [ -z $1 ];then
+echo $"Usage: $0 { install <service> | configure <service> | restart <service> } "
+      echo "    $0 <service> install - install service"
+      echo "    $0 <service> configure - configure service"
+	  echo "    $0 <service> restart - restart service"
+      exit 1
+      # TODO: add uninstall role
+fi
+
+
+# 1. Fond service in servers list list
+# if need add service add var SECTION_<YOUR_SERVICE>, and add to SECTION_ALL and to # 3. Get section by service name (see below)
+SECTION_NETWORK=`ls -1 network | grep -v ".yaml"`
+SECTION_MONITORING=`ls -1 monitoring | grep -v ".yaml"`
+SECTION_SECURITY=`ls -1 security | grep -v ".yaml"`
+LB="\n" # Line Break
+SECTION_ALL=`echo -e ${SECTION_NETWORK}${LB}${SECTION_MONITORING}${LB}${SECTION_SECURITY}`
+
+SERVICE_FOUND=false
+for section in $SECTION_ALL
+do
+    if [ $section == $SERVICE ];then
+        echo -en "Check Service Name: $SERVICE [$GREEN_COLOR OK $CLEAR_COLOR]\n"
+        SERVICE_FOUND=true
+        break
+    fi
+done
+
+if [ $SERVICE_FOUND == "false" ];then
+    echo -en "Check Service Name:  $SERVICE [$RED_COLOR FAIL $CLEAR_COLOR]\n"
+    echo "It must be one of this:"
+    echo -e "$SECTION_ALL"
+    exit 1
+fi
+
+
+# 2. Check actions
+ROLE_ACTION_LIST="install configure restart"
+ROLE_ACTION_FOUND=false
+for action in $ROLE_ACTION_LIST
+do
+    if [ $action == $ROLE_ACTION ];then
+        echo -en "Check Action Name: $ROLE_ACTION [$GREEN_COLOR OK $CLEAR_COLOR]\n"
+        ROLE_ACTION_FOUND=true
+        break
+    fi
+done
+
+if [ $ROLE_ACTION_FOUND == "false" ];then
+    echo -en "Check Action Name: $ROLE_ACTION [$RED_COLOR FAIL $CLEAR_COLOR]\n"
+    echo "It must be one of this:"
+    echo -e "$ROLE_ACTION_LIST"
+    exit 1
+fi
+
+
+# 3. Get section by service name
+for service_in_section in $SECTION_NETWORK
+do
+    if [ $service_in_section == $SERVICE ];then
+        SECITON=network
+        echo -en "Check Section Name: $SECITON [$GREEN_COLOR OK $CLEAR_COLOR]\n"
+        break
+    fi
+done
+
+for service_in_section in $SECTION_MONITORING
+do
+    if [ $service_in_section == $SERVICE ];then
+        SECITON=monitoring
+        echo -en "Check Section Name: $SECITON [$GREEN_COLOR OK $CLEAR_COLOR]\n"
+        break
+    fi
+done
+
+for service_in_section in $SECTION_SECURITY
+do
+    if [ $service_in_section == $SERVICE ];then
+        SECITON=sequrity
+        echo -en "Check Section Name: $SECITON [$GREEN_COLOR OK $CLEAR_COLOR]\n"
+        break
+    fi
+done
+
+
+if [ $ROLE_ACTION == "install" ];then
+  $TEXT_EDITOR ${SECITON}/${SERVICE}/vars/main.yaml
+fi
+
+
+# 4. Run ansible
+ansible-playbook ${SECITON}/${SECITON}_main.yaml -i inventory -e "role_action=${ROLE_ACTION} role_current=${SERVICE}" --tags "${SERVICE}"
+#ansible-playbook ${SECITON}/${SERVICE}/tasks/main.yaml -i inventory -e "role_action=${ROLE_ACTION} role_current=${SERVICE}" #--tags "${SERVICE}"
+#ansible-playbook ${SECITON}/${SECITON}_main.yaml -i inventory -e "role_action=${ROLE_ACTION} role_current=${SERVICE}"
+
+#ansible-playbook ${SECITON}/${SECITON}_main.yaml -i inventory -e "role_action=${ROLE_ACTION} role_current=${SERVICE}" --tags "${SERVICE}"
+
+exit 0

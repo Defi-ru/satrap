@@ -1,0 +1,24 @@
+---
+- name: "Gather Facts from setup module"
+  ansible.builtin.setup:
+
+# Install
+- block:
+   - name: "Include Task Install {{ role_current }}"
+     ansible.builtin.import_tasks: "{{ role_current }}/tasks/{{ role_current }}_install.yaml"
+
+   - name: "Include Task Install {{ role_current }}"
+     ansible.builtin.import_tasks: "{{ role_current }}/tasks/{{ role_current }}_configure.yaml"
+  when: role_action == "install"
+
+# Configure
+- block:
+   - name: "Include Task Configure {{ role_current }}"
+     ansible.builtin.import_tasks: "{{ role_current }}/tasks/{{ role_current }}_configure.yaml"
+  when: role_action == "configure"
+
+# Restart
+- block:
+   - name: "Include Task Restart {{ role_current }}"
+     ansible.builtin.import_tasks: "{{ role_current }}/tasks/{{ role_current }}_restart.yaml"
+  when: role_action == "restart"

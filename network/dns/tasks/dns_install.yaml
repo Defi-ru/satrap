@@ -1,0 +1,13 @@
+---
+  #- include_vars:
+  #    file: vars/vars.yaml
+
+  - name: "Inatall DNS"
+    ansible.builtin.package:
+      name: bind
+      state: present
+
+  - name: "Enable named service"
+    ansible.builtin.systemd:
+      name: named
+      enabled: true

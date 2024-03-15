@@ -1,0 +1,18 @@
+---
+# Old installation variant:
+#     - name: "Grafana - Add repository"
+#       ansible.builtin.yum_repository:
+#         name: grafana-oss
+#         description: "Grafana repository"
+#         baseurl: https://packages.grafana.com/oss/rpm
+#         repo_gpgcheck: yes
+#         enabled: yes
+#         gpgcheck: yes
+#         gpgkey: https://packages.grafana.com/gpg.key
+#         sslverify: yes
+#         sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+
+- name: "Grafana - Install grafana package"
+  ansible.builtin.package:
+    name: https://dl.grafana.com/oss/release/grafana-9.2.4-1.x86_64.rpm
+    state: present

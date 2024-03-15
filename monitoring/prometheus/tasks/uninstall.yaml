@@ -1,0 +1,106 @@
+---
+# Не рабочий с satrap вариает, возможно в будущем можно будет сделать
+
+ - name: "Node Exporter Install/Settings"
+   hosts:
+     - prometheus_server
+     #- prometheus_node_exporter
+   become: yes
+# TODO: сделать разделение удалять /etc/prometheus или нет. Пригодится, если там уже есть jmx_exporter'ы из других источников
+# добавть таск на подчищение
+# протестировать
+# vars:
+#   - uninstall_all: true
+
+   tasks:
+     - include_vars:
+         file: vars/prometheus-vars.yaml
+       tags:
+         - uninstall_prometheus_server
+         - uninstall_node_exporter
+         - uninstall_grafana_server
+
+# ======= Node Exporter =======
+  # Unintall Prometheus
+     - block:
+       - name: "Prometheus - Stop systemd prometheus"
+         ansible.builtin.systemd:
+           name: prometheus
+           state: stopped
+           enabled: no
+         ignore_errors: yes
+
+#       - name: "Prometheus - Delete tar"
+#         ansible.builtin.file:
+#           path: "{{ prometheus_download_dir  }}/{{ prometheus_name }}.tar.gz"
+#           state: absent
+
+       # /bin
+       - name: "Prometheus - Delete Prometheus Binaries"
+         ansible.builtin.file:
+           path: "{{ item.source_path }}"
+           state: absent
+         loop:
+           - source_path: "{{ prometheus_download_dir  }}/{{ prometheus_name }}.tar.gz"
+           - source_path: "{{ prometheus_bin_dir }}/prometheus"
+           - source_path: "{{ prometheus_bin_dir }}/promtool"
+           - source_path: "{{ prometheus_lib_dir }}"
+           - source_path: "{{ prometheus_settings_dir }}/consoles"
+           - source_path: "{{ prometheus_settings_dir }}/console_libraries"
+           - source_path: "{{ prometheus_settings_dir }}/prometheus.yml"
+           - source_path: /etc/systemd/system/prometheus.service
+
+# TODO: сюда добавим таск по удалению директории
+
+       - name: "Prometheus - Remove rpometheus user"
+         ansible.builtin.user:
+           name: prometheus
+           state: absent
+
+       tags: ununstall_prometheus_server
+
+   # Uninstall Node Exoporter
+     - block:
+       - name: "Node Exporter - Stop service node-exporter"
+         ansible.builtin.systemd:
+           name: node_exporter
+           state: stopped
+           enabled: no
+         ignore_errors: yes
+
+       - name: "Node Exporter - Delete all files"
+         ansible.builtin.file:
+           path: "{{ item.source_path  }}"
+           state: absent
+         loop:
+           - source_path: "{{ prometheus_download_dir  }}/{{ prometheus_node_exporter_name }}.tar.gz"
+           - source_path: "{{ prometheus_download_dir }}/{{ prometheus_node_exporter_name }}/node_exporter"
+           - source_path: /etc/systemd/system/node_exporter.service
+
+       - name: "Node Exporter - Remove nodeusr user"
+         ansible.builtin.user:
+           name: nodeusr
+           state: absent
+
+       tags: uninstall_node_exporter
+
+# ====== Uninstall Grafana
+     - block:
+       - name: "Grafana - start systemctl grafana-server"
+         ansible.builtin.systemd:
+           name: grafana-server
+           state: stopped
+           enabled: no
+         ignore_errors: yes
+
+       - name: "Grafana - Remove repository"
+         ansible.builtin.yum_repository:
+           name: grafana-oss
+           state: absent
+
+       - name: "Grafana - uninstall grafana package"
+         ansible.builtin.package:
+           name: grafana
+           state: absent
+
+       tags: uninstall_grafana_server

@@ -1,0 +1,21 @@
+# A little housekeeping: DON'T EDIT THIS SECTION
+#
+# Easy-RSA 3.x doesn't source into the environment directly.
+# Complain if a user tries to do this:
+if [ -z "$EASYRSA_CALLER" ]; then
+        echo "You appear to be sourcing an Easy-RSA 'vars' file." >&2
+        echo "This is no longer necessary and is disallowed. See the section called" >&2
+        echo "'How to use this file' near the top comments for more details." >&2
+        return 1
+fi
+
+
+set_var EASYRSA_REQ_COUNTRY "{{ easyrsa_req_country }}"
+set_var EASYRSA_REQ_PROVINCE "{{ easyrsa_req_province }}"
+set_var EASYRSA_REQ_CITY "{{ easyrsa_req_city }}"
+set_var EASYRSA_REQ_ORG "{{ easyrsa_req_org }}"
+set_var EASYRSA_REQ_EMAIL "{{ easyrsa_req_email }}"
+set_var EASYRSA_REQ_OU "{{ easyrsa_req_ou }}"
+
+export KEY_NAME="server"
+export KEY_CN=openvpn.yourdomain.com

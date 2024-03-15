@@ -1,0 +1,13 @@
+---
+  #- include_vars:
+  #    file: ../vars/main.yaml
+
+  - name: "Inatall DHCP"
+    ansible.builtin.package:
+      name: dhcp
+      state: present
+
+  - name: "Enable DHCP service"
+    ansible.builtin.systemd:
+      name: dhcpd
+      enabled: true

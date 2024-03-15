@@ -1,0 +1,6 @@
+---
+- name: "dhcp_restart"
+  ansible.builtin.include_tasks:
+    file: dhcp_restart.yaml
+  #listen: dhcp_restart
+

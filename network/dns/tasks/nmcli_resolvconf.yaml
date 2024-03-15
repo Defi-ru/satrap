@@ -1,0 +1,29 @@
+---
+- hosts:
+    dns_clients
+  gather_facts: yes
+  become: true
+  become_user: root
+  vars:
+    - connection_name: enp0s3 # run command: nmcli
+
+  tasks:
+
+   - name: "Configure resolv.conf via nmcli"
+     community.general.nmcli:
+       conn_name: "{{ connection_name }}"
+       type: ethernet
+       dns4: {{ dns_ip }}
+       dns4_search: {{ dns_domain }}
+       state: present
+
+   - name: "Restart Network Manager"
+     ansible.builtin.systemd:
+       name: network
+       state: restarted
+
+# if os cent 9
+#   - name: "Restart Network Manager"
+#     ansible.builtin.systemd:
+#       name: NetworkManger
+#       state: restarted

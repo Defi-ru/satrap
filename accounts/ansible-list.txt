@@ -1,0 +1,4 @@
+      popov:
+        password: "$6$mysef23f2fb$FH4Drg3hFlgXcjraGmk9IbgRFZ9PFRUAZtrBvC/ILQPkMgjp5SiSjlVBy3xpTGuddellHAv09lSXzVISOAg611"
+      yakupov:
+        password: "$6$mysef23f2fb$/ra.zKdc.4XPB/yxFUPdKxYZ563JYlGBV9ZDgHof6S1AOlcLtL1yA3WNKy4XF8Nekb00CHW/2knSkXlu7L4kM0"

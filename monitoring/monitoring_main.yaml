@@ -1,0 +1,40 @@
+---
+- name: "InfluxDB Server"
+  hosts: influxdb_server
+  become: true
+  # We collect facts in main.yaml (in service dir) via module setup.
+  # Otherwise, a lot of time is lost when all tasks will collect facts in this yaml file
+  gather_facts: no
+  roles:
+    - { role: 'influxdb', tags: 'influxdb'}
+
+
+- name: "InfluxDB Telegraf"
+  hosts: telegraf
+  become: true
+  gather_facts: no
+  roles:
+    - { role: 'telegraf', tags: 'telegraf'}
+
+
+- name: "Prometheus Server"
+  hosts: prometheus_server
+  become: true
+  gather_facts: no
+  roles:
+    - { role: 'prometheus', tags: 'prometheus'}
+
+- name: "Prometheus Node Exporter"
+  hosts: node_exporter
+  become: true
+  gather_facts: no
+  roles:
+    - { role: 'node_exporter', tags: 'node_exporter'}
+
+
+- name: "Grafana Server"
+  hosts: grafana_server
+  become: true
+  gather_facts: no
+  roles:
+    - { role: 'grafana', tags: 'grafana'}
