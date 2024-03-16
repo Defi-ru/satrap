@@ -1,5 +1,5 @@
 # Hint: fast prepare inventory file (by sed) just replace your server:
-# sed -i 's#srv-hadoop01.nyufkins.com#srv-centos-test.narfa.pl#g' inventory
+# sed -i 's#srv-hadoop01.nyufkins.com#srv-centos-test.narfa.pl#g' inventory.yaml
 
 # === Network
 # DNS
@@ -88,7 +88,7 @@ prometheus_server:
   vars:
     ansible_user: root
 
-node_exporter:
+prometheus_node_exporter:
   hosts:
     server01
     server02
