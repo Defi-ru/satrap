@@ -1,0 +1,4 @@
+Version 0.8.6
+- modify satrap.sh (add "tune" command - only configure vars for process)
+- refactoring satrap.sh (new commands style, functions)
+- fix prometheus_node_exporter problem

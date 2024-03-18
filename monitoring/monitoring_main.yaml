@@ -25,7 +25,7 @@
     - { role: 'prometheus', tags: 'prometheus'}
 
 - name: "Prometheus Node Exporter"
-  hosts: node_exporter
+  hosts: prometheus_node_exporter
   become: true
   gather_facts: no
   roles:
