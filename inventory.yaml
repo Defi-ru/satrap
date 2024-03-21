@@ -1,5 +1,5 @@
 # Hint: fast prepare inventory file (by sed) just replace your server:
-# sed -i 's#srv-hadoop01.nyufkins.com#srv-centos-test.narfa.pl#g' inventory.yaml
+# sed -i 's#server01#my_server#g' inventory.yaml
 
 # === Network
 # DNS
@@ -9,6 +9,9 @@ dns_server:
   vars:
     ansible_user: root
 
+# If you only need DNS without DHCP, then fill in the dhcp_clients section. 
+# This will also work for DNS. 
+# If DHCP is not used, then you don’t have to fill in the mac address
 dns_clients:
   children:
     dhcp_clients:

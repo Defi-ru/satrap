@@ -1,14 +1,14 @@
 openvpn_conf_dir: /etc/openvpn
 easy_rsa_url: https://github.com/OpenVPN/easy-rsa/archive/v3.0.8.tar.gz
 easy_rsa_tar: v3.0.8.tar.gz
-easy_rsa_unpack: easy-rsa-3.0.8 # TOOD: переделать
+easy_rsa_unpack: easy-rsa-3.0.8 # TODO: redo this
 openvpn_server_ip: 192.168.130.141
 
 
 # Certificate
-easyrsa_req_country: "RU"
-easyrsa_req_province: "Primorsky Kray"
-easyrsa_req_city: "Vladivostok"
-easyrsa_req_org: "Nyufkins.com"
-easyrsa_req_email: "me@nyufkins.com"
+easyrsa_req_country: "CH"
+easyrsa_req_province: "Canton of Bern"
+easyrsa_req_city: "Bern"
+easyrsa_req_org: "satrap.local"
+easyrsa_req_email: "me@local"
 easyrsa_req_ou: "IT OU"

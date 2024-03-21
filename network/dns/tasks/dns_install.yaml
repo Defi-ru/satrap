@@ -2,7 +2,7 @@
   #- include_vars:
   #    file: vars/vars.yaml
 
-  - name: "Inatall DNS"
+  - name: "Install DNS"
     ansible.builtin.package:
       name: bind
       state: present

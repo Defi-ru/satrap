@@ -1,3 +1,6 @@
+Version 0.8.7
+- documentation improved
+
 Version 0.8.6
 - modify satrap.sh (add "tune" command - only configure vars for process)
 - refactoring satrap.sh (new commands style, functions)
