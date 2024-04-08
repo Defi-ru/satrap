@@ -2,7 +2,7 @@
 Infrastructure control tool
 
 # Quick start
-## Prepare satrap server
+## I. Prepare satrap server
 ### Install Ansible on CentOS 7
 ```
 yum install python3-pip -y
@@ -26,7 +26,7 @@ ssh-copy-id <server02>
 ...
 ```
 
-## Install satrap server
+## II. Install satrap server
 ```
 cd /opt
 git clone https://github.com/Defi-ru/satrap.git

@@ -12,12 +12,12 @@
       - easy-rsa
     state: present
 
-# Isntall EasyRSA
-#- name: "Download EasyRSA"
-#  ansible.builtin.get_url:
-#    url: "{{ easy_rsa_url }}"
-#    dest: "{{ openvpn_conf_dir}}/{{ easy_rsa_tar }}"
-#    mode: '0755'
+ Install EasyRSA
+- name: "Download EasyRSA"
+  ansible.builtin.get_url:
+    url: "{{ easy_rsa_url }}"
+    dest: "{{ openvpn_conf_dir}}/{{ easy_rsa_tar }}"
+    mode: '0755'
 
 - name: "Extract tar {{ openvpn_conf_dir}}/{{ easy_rsa_tar }} to {{ openvpn_conf_dir}}"
   ansible.builtin.unarchive:
